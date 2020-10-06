@@ -74,8 +74,8 @@ def createMatrix(fileName):
 		source = int(lt[0])
 		dest = int(lt[1])
 		weight = int(lt[2])
-		n[source][count] = 1*weight
-		n[dest][count] = -1*weight
+		n[source-1][count] = 1*weight
+		n[dest-1][count] = -1*weight
 		count += 1
 	for i in n:
 		print(i)
