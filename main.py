@@ -5,7 +5,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-N = [[]]
+N = [[]]    # rows=nodes, cols=arcs
+Beta = {}
+Beta[2] = set()
+
 
 def T(j):
     if None:
@@ -18,8 +21,7 @@ def Y(i, j):
     return Y(i, j)
 
 
-def alg():
-    j = None
+def alg(j):
     k = 1
     l = 0
     t_max = 0.0
@@ -34,3 +36,14 @@ def alg():
             l += 1
         k += 1
     return t_max
+
+
+def write_output(filename, results):
+    with open(filename, 'w') as f:
+        for result in results:
+            string = 'OUTPUT\t:'
+            for arc in result[0]:
+                string += arc + ','
+            string = string[:-1]
+            string += '\t' + str(result[1])
+            f.write(f'{string:>10}\n')
