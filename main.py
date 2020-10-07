@@ -37,10 +37,7 @@ def T(j):
                 t_max = t
             l += 1
         k += 1
-<<<<<<< HEAD
     t_tab[j] = t_max
-=======
->>>>>>> 0ef447f0c73320c42dbe14f566cbf79974517125
     return t_max
 
 # Takes the .net file and creates an n*m matrix. 
@@ -115,7 +112,7 @@ def write_output(filename, results):
             f.write(f'{string:>10}\n')
 
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
 randoms = open('uniform-0-1-00.dat', 'r')
 n = 30000
 N_standard = createMatrix("san-leemis79.net")
@@ -123,9 +120,6 @@ target = len(N_standard) - 1
 Beta = make_Beta()
 paths_dict = {}
 for i in range(7000):
-    if i % 25 == 0:
-        print()
-    print(i, end=' - ')
     N = [[i for i in j] for j in N_standard]
     t_tab = [None for i in range(len(N))]
     t_tab[0] = 0.0
@@ -133,13 +127,14 @@ for i in range(7000):
 
     t = T(target)
     path = find_path(target)
-    path_str = ''
-    for node in path[::-1]:
-        path_str += str(node+1)
+    path_str = path
     if path_str not in paths_dict.keys():
         paths_dict[path_str] = []
     paths_dict[path_str].append(t)
-=======
+print('\n')
+for k, v in paths_dict.items():
+    print(k, len(v))
+'''=======
 N = createMatrix("san-leemis01.net")
 Beta = make_Beta()
 t_tab = [None for i in range(len(N))]
@@ -175,4 +170,4 @@ def main():
 
 if __name__ == '__main__':
     main()
->>>>>>> 0ef447f0c73320c42dbe14f566cbf79974517125
+>>>>>>> 0ef447f0c73320c42dbe14f566cbf79974517125'''
