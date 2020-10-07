@@ -32,7 +32,7 @@ def T(j):
             if t_tab[i] is None:
                 t_i = T(i)
                 t_tab[i] = t_i
-            t = t_tab[i] + abs(N[i][k])*random.random()*2
+            t = t_tab[i] + abs(N[i][k])
             if t >= t_max:
                 t_max = t
             l += 1
@@ -107,23 +107,26 @@ terminalNode = len(N)-1
 def runSimulation(n):
 	dic = {}
 	for i in range(n):
-		T(terminalNode)
-		path_string = find_path(terminalNode)
-		if path_string not in dic.keys():
-			dic[path_string] = 1
-		else:
-			dic[path_string] = dic[path_string]+1
-	for k, c in dic.items():
-		print(k," : ",c)
+	    print("I = ", i)
+	    print(T(terminalNode))
+	    print(t_tab)
+	    print(find_path(terminalNode))
+	# 	T(terminalNode)
+	# 	path_string = find_path(terminalNode)
+	# 	if path_string not in dic.keys():
+	# 		dic[path_string] = 1
+	# 	else:
+	# 		dic[path_string] = dic[path_string]+1
+	# for k, c in dic.items():
+	# 	print(k," : ",c)
 
 
 
 def main():
-    # print(terminalNode)
-    # print(T(terminalNode))
-    # print(t_tab)
-    # print(find_path(terminalNode))
-    runSimulation(100000)
+    print(T(terminalNode))
+    print(t_tab)
+    print(find_path(terminalNode))
+    # runSimulation(100000)
 
 
 
