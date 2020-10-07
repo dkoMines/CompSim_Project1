@@ -21,24 +21,7 @@ def make_Beta():
     return b
 
 
-def has_negative(ls):
-    for element in ls:
-        if element < 0:
-            return True
-    return False
-
-
 def T(j):
-    if j == 0 or len(Beta[j]) == 0:
-        return 0.0
-    Ts = []
-    for node in Beta[j]:
-        Ts.append(T(node) + abs(N[node][j]))
-    return max(Ts)
-
-
-
-def alg(j):
     k = 0
     l = 0
     t_max = 0.0
@@ -100,7 +83,7 @@ Beta = make_Beta()
 
 
 def main():
-    print(alg(5))
+    print(T(5))
 
 
 if __name__ == '__main__':
