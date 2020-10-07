@@ -6,7 +6,7 @@ import numpy as np
 
 # import matplotlib.pyplot as plt
 
-
+# Returns a dictionary of what leads to i node. 
 def make_Beta():
     b = {}
     for i in range(len(N_standard)):
@@ -20,12 +20,10 @@ def make_Beta():
         b[i] = set(immediate_nodes)
     return b
 
-
 def T(j):
     k = 0
     l = 0
     t_max = 0.0
-    i_max = None
     while l < len(Beta[j]):
         if N[j][k] < 0.0:
             i = 0
@@ -34,26 +32,30 @@ def T(j):
             if t_tab[i] is None:
                 t_i = T(i)
                 t_tab[i] = t_i
-            t = t_tab[i] + abs(N[i][k])
+            t = t_tab[i] + abs(N[i][k])*random.random()*2
             if t >= t_max:
                 t_max = t
-                i_max = i
             l += 1
         k += 1
+<<<<<<< HEAD
     t_tab[j] = t_max
+=======
+>>>>>>> 0ef447f0c73320c42dbe14f566cbf79974517125
     return t_max
 
-
+# Takes the .net file and creates an n*m matrix. 
 def max_beta(j):
     b = sorted([(t_tab[c], c) for c in Beta[j]])
     return b[-1][1]
 
 
 def find_path(j):
-    path = [j]
+    path = str(j+1)
+    path += ","
     while True:
         max_node = max_beta(j)
-        path.append(max_node)
+        path += str(max_node+1)
+        path += ","
         if max_node == 0:
             return path
         j = max_node
@@ -113,6 +115,7 @@ def write_output(filename, results):
             f.write(f'{string:>10}\n')
 
 
+<<<<<<< HEAD
 randoms = open('uniform-0-1-00.dat', 'r')
 n = 30000
 N_standard = createMatrix("san-leemis79.net")
@@ -136,3 +139,37 @@ for i in range(7000):
     if path_str not in paths_dict.keys():
         paths_dict[path_str] = []
     paths_dict[path_str].append(t)
+=======
+N = createMatrix("san-leemis01.net")
+Beta = make_Beta()
+t_tab = [None for i in range(len(N))]
+t_tab[0] = 0.0
+terminalNode = len(N)-1
+
+
+def runSimulation(n):
+	dic = {}
+	for i in range(n):
+		T(terminalNode)
+		path_string = find_path(terminalNode)
+		if path_string not in dic.keys():
+			dic[path_string] = 1
+		else:
+			dic[path_string] = dic[path_string]+1
+	for k, c in dic.items():
+		print(k," : ",c)
+
+
+
+def main():
+    # print(terminalNode)
+    # print(T(terminalNode))
+    # print(t_tab)
+    # print(find_path(terminalNode))
+    runSimulation(100000)
+
+
+
+if __name__ == '__main__':
+    main()
+>>>>>>> 0ef447f0c73320c42dbe14f566cbf79974517125
