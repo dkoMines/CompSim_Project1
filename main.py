@@ -20,6 +20,7 @@ def make_Beta():
         b[i] = set(immediate_nodes)
     return b
 
+<<<<<<< HEAD
 # TODO:: Probably remove this.
 def has_negative(ls):
     for element in ls:
@@ -27,18 +28,10 @@ def has_negative(ls):
             return True
     return False
 
+=======
+>>>>>>> 5b3e70ca9d3a451f5d589e80b5a22bbfeb7e9bf6
 
 def T(j):
-    if j == 0 or len(Beta[j]) == 0:
-        return 0.0
-    Ts = []
-    for node in Beta[j]:
-        Ts.append(T(node) + abs(N[node][j]))
-    return max(Ts)
-
-
-
-def alg(j):
     k = 0
     l = 0
     t_max = 0.0
@@ -100,7 +93,7 @@ Beta = make_Beta()
 
 
 def main():
-    print(alg(5))
+    print(T(5))
 
 
 if __name__ == '__main__':
