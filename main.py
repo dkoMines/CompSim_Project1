@@ -29,7 +29,10 @@ def T(j):
             i = 0
             while N[i][k] < 1:
                 i += 1
-            t = T(i) + abs(N[i][k])
+            if t_tab[i] is None:
+                t_i = T(i)
+                t_tab[i] = t_i
+            t = t_tab[i] + abs(N[i][k])*random.random()*2
             if t >= t_max:
                 t_max = t
             l += 1
@@ -37,6 +40,23 @@ def T(j):
     return t_max
 
 # Takes the .net file and creates an n*m matrix. 
+def max_beta(j):
+    b = sorted([(t_tab[c], c) for c in Beta[j]])
+    return b[-1][1]
+
+
+def find_path(j):
+    path = str(j+1)
+    path += ","
+    while True:
+        max_node = max_beta(j)
+        path += str(max_node+1)
+        path += ","
+        if max_node == 0:
+            return path
+        j = max_node
+
+
 def createMatrix(fileName):
     data = open(fileName)
     largestNum = 0
@@ -77,12 +97,34 @@ def write_output(filename, results):
             f.write(f'{string:>10}\n')
 
 
-N = createMatrix("san-leemis79.net")
+N = createMatrix("san-leemis01.net")
 Beta = make_Beta()
+t_tab = [None for i in range(len(N))]
+t_tab[0] = 0.0
+terminalNode = len(N)-1
+
+
+def runSimulation(n):
+	dic = {}
+	for i in range(n):
+		T(terminalNode)
+		path_string = find_path(terminalNode)
+		if path_string not in dic.keys():
+			dic[path_string] = 1
+		else:
+			dic[path_string] = dic[path_string]+1
+	for k, c in dic.items():
+		print(k," : ",c)
+
 
 
 def main():
-    print(T(5))
+    # print(terminalNode)
+    # print(T(terminalNode))
+    # print(t_tab)
+    # print(find_path(terminalNode))
+    runSimulation(100000)
+
 
 
 if __name__ == '__main__':
