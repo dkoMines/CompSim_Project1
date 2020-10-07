@@ -25,17 +25,38 @@ def T(j):
     k = 0
     l = 0
     t_max = 0.0
+    i_max = None
     while l < len(Beta[j]):
         if N[j][k] < 0:
             i = 0
             while N[i][k] < 1:
                 i += 1
-            t = T(i) + abs(N[i][k])
+            if t_tab[i] is None:
+                t_i = T(i)
+                t_tab[i] = t_i
+            t = t_tab[i] + abs(N[i][k])
             if t >= t_max:
                 t_max = t
+                i_max = i
             l += 1
         k += 1
+    print(j, i_max)
     return t_max
+
+
+def max_beta(j):
+    b = sorted([(t_tab[c], c) for c in Beta[j]])
+    return b[-1][1]
+
+
+def find_path(j):
+    path = [j]
+    while True:
+        max_node = max_beta(j)
+        path.append(max_node)
+        if max_node == 0:
+            return path
+        j = max_node
 
 
 def createMatrix(fileName):
@@ -80,10 +101,14 @@ def write_output(filename, results):
 
 N = createMatrix("san-leemis79.net")
 Beta = make_Beta()
+t_tab = [None for i in range(len(N))]
+t_tab[0] = 0.0
 
 
 def main():
     print(T(5))
+    print(t_tab)
+    print(find_path(5))
 
 
 if __name__ == '__main__':
