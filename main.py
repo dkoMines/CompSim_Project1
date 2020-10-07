@@ -1,21 +1,21 @@
 import random
 import math
 import sys
+import numpy as np
 
 
-# import numpy as np
 # import matplotlib.pyplot as plt
 
 
 def make_Beta():
     b = {}
-    for i in range(len(N)):
+    for i in range(len(N_standard)):
         immediate_nodes = []
-        for j in range(len(N[i])):
-            val = N[i][j]
+        for j in range(len(N_standard[i])):
+            val = N_standard[i][j]
             if val < 0:
-                for k in range(len(N)):
-                    if abs(val) == N[k][j]:
+                for k in range(len(N_standard)):
+                    if abs(val) == N_standard[k][j]:
                         immediate_nodes.append(k)
         b[i] = set(immediate_nodes)
     return b
@@ -27,9 +27,9 @@ def T(j):
     t_max = 0.0
     i_max = None
     while l < len(Beta[j]):
-        if N[j][k] < 0:
+        if N[j][k] < 0.0:
             i = 0
-            while N[i][k] < 1:
+            while N[i][k] <= 0.0:
                 i += 1
             if t_tab[i] is None:
                 t_i = T(i)
@@ -40,7 +40,7 @@ def T(j):
                 i_max = i
             l += 1
         k += 1
-    print(j, i_max)
+    t_tab[j] = t_max
     return t_max
 
 
@@ -88,6 +88,20 @@ def createMatrix(fileName):
     return n
 
 
+def randomize_N(file_obj, _N):
+    for i in range(len(_N)):
+        for j in range(len(_N[i])):
+            val = _N[i][j]
+            if val < 0:
+                for k in range(len(_N)):
+                    if abs(val) == _N[k][j]:
+                        rand = float(file_obj.readline())
+                        val *= rand
+                        _N[i][j] = val
+                        _N[k][j] = -val
+                        break
+
+
 def write_output(filename, results):
     with open(filename, 'w') as f:
         for result in results:
@@ -99,17 +113,26 @@ def write_output(filename, results):
             f.write(f'{string:>10}\n')
 
 
-N = createMatrix("san-leemis79.net")
+randoms = open('uniform-0-1-00.dat', 'r')
+n = 30000
+N_standard = createMatrix("san-leemis79.net")
+target = len(N_standard) - 1
 Beta = make_Beta()
-t_tab = [None for i in range(len(N))]
-t_tab[0] = 0.0
+paths_dict = {}
+for i in range(7000):
+    if i % 25 == 0:
+        print()
+    print(i, end=' - ')
+    N = [[i for i in j] for j in N_standard]
+    t_tab = [None for i in range(len(N))]
+    t_tab[0] = 0.0
+    randomize_N(randoms, N)
 
-
-def main():
-    print(T(5))
-    print(t_tab)
-    print(find_path(5))
-
-
-if __name__ == '__main__':
-    main()
+    t = T(target)
+    path = find_path(target)
+    path_str = ''
+    for node in path[::-1]:
+        path_str += str(node+1)
+    if path_str not in paths_dict.keys():
+        paths_dict[path_str] = []
+    paths_dict[path_str].append(t)
