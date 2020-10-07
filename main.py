@@ -29,12 +29,13 @@ def has_negative(ls):
 
 
 def T(j):
-    if len(Beta[j]) == 0:
-        return 0
-    total_time = 0
+    if j == 0 or len(Beta[j]) == 0:
+        return 0.0
+    Ts = []
     for node in Beta[j]:
-        total_time += abs(N[node][j]) + T(node)
-    return total_time
+        Ts.append(T(node) + abs(N[node][j]))
+    return max(Ts)
+
 
 
 def alg(j):
@@ -46,7 +47,7 @@ def alg(j):
             i = 0
             while N[i][k] < 1:
                 i += 1
-            t = T(i) + Y[i][j]
+            t = T(i) + abs(N[i][k])
             if t >= t_max:
                 t_max = t
             l += 1
@@ -95,11 +96,12 @@ def write_output(filename, results):
 
 
 N = createMatrix("san-leemis79.net")
-Y = [[]]
 Beta = make_Beta()
 
 
 def main():
-    n = 30000
-    for i in range(n):
-        alg(5)
+    print(alg(5))
+
+
+if __name__ == '__main__':
+    main()
