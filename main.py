@@ -6,7 +6,7 @@ import sys
 # import numpy as np
 # import matplotlib.pyplot as plt
 
-
+# Returns a dictionary of what leads to i node. 
 def make_Beta():
     b = {}
     for i in range(len(N)):
@@ -20,7 +20,7 @@ def make_Beta():
         b[i] = set(immediate_nodes)
     return b
 
-
+# TODO:: Probably remove this.
 def has_negative(ls):
     for element in ls:
         if element < 0:
@@ -54,7 +54,7 @@ def alg(j):
         k += 1
     return t_max
 
-
+# Takes the .net file and creates an n*m matrix. 
 def createMatrix(fileName):
     data = open(fileName)
     largestNum = 0
