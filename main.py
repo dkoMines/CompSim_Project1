@@ -20,17 +20,6 @@ def make_Beta():
         b[i] = set(immediate_nodes)
     return b
 
-<<<<<<< HEAD
-# TODO:: Probably remove this.
-def has_negative(ls):
-    for element in ls:
-        if element < 0:
-            return True
-    return False
-
-=======
->>>>>>> 5b3e70ca9d3a451f5d589e80b5a22bbfeb7e9bf6
-
 def T(j):
     k = 0
     l = 0
