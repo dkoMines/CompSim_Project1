@@ -107,13 +107,17 @@ def createMatrix(fileName):
 
 def write_output(filename, results):
     with open(filename, 'w') as f:
-        for result in results:
+        for r, v in results.items():
             string = 'OUTPUT\t:'
-            for arc in result[0]:
-                string += arc + ','
-            string = string[:-1] + ':'
-            string += '\t' + str(result[1])
-            f.write(f'{string:>10}\n')
+            string += r[:-1]
+            string += ':\t' + str(v/n)
+            path_str = ""
+            for i in range(len(r)):
+                if i % 2 == 0:
+                    if i + 2 >= len(r):
+                        break
+                    path_str += f"a{r[i]}/{r[i+2]},"
+            f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:e}\n".format(v/n))
 
 
 def runSimulation(n):
@@ -138,6 +142,8 @@ def runSimulation(n):
             dic[path_string] = dic[path_string]+1
     for k, c in dic.items():
         print(k," : ","{:e}".format(c/n))
+    write_output('resultsTest.txt', dic)
+
 
 
 N = createMatrix("san-leemis79.net")
@@ -145,5 +151,6 @@ Beta = make_Beta()
 t_tab = [None for i in range(len(N))]
 t_tab[0] = 0.0
 terminalNode = len(N)-1
+n = 100000
 
-runSimulation(100000)
+runSimulation(n)
