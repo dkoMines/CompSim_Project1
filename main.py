@@ -75,14 +75,18 @@ def find_path(j):
 
 
 def createMatrix(fileName):
-    data = open(fileName)
+    try:
+        data = open(fileName)
+    except:
+        print("Description File not found")
+        exit(1)
     largestNum = 0
     numLines = 0
     n = []
     for lt in [line.split() for line in data]:
         source = int(lt[0])
         dest = int(lt[1])
-        weight = int(lt[2])
+        weight = float(lt[2])
         numLines += 1
         if largestNum < dest:
             largestNum = dest
@@ -96,7 +100,7 @@ def createMatrix(fileName):
     for lt in [line.split() for line in data]:
         source = int(lt[0])
         dest = int(lt[1])
-        weight = int(lt[2])
+        weight = float(lt[2])
         n[source - 1][count] = 1 * weight
         n[dest - 1][count] = -1 * weight
         count += 1
@@ -117,6 +121,7 @@ def write_output(filename, results):
                     if i + 2 >= len(r):
                         break
                     path_str += f"a{r[i]}/{r[i+2]},"
+            print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:e}".format(v/n))
             f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:e}\n".format(v/n))
 
 
@@ -145,11 +150,17 @@ def runSimulation(n):
     write_output('resultsTest.txt', dic)
 
 
-def runProgram():
-    N = createMatrix("san-leemis79.net")
+def runProgram(uniformFileName, repNum, txtFileName):
+    global N,Beta,t_tab,terminalNode,n
+    try:
+        uniforms = open(uniformFileName)
+    except:
+        print("Random File not found")
+        exit(1)
+    N = createMatrix(txtFileName)
     Beta = make_Beta()
     t_tab = [None for i in range(len(N))]
     t_tab[0] = 0.0
     terminalNode = len(N)-1
-    n = 100000
+    n = int(repNum)
     runSimulation(n)
