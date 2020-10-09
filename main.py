@@ -22,9 +22,7 @@ def make_Beta():
 
 def T(j):
     # print(j+1)
-    global pathList
-    global P
-    global bestMax
+    global P, nextRandom
     k = 0
     l = 0
     t_max = 0.0
@@ -35,19 +33,13 @@ def T(j):
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
-            t = prevWeight + abs(N[i][k])*random.random()*2
-            # print(j+1,"->",i+1," Weight: ",t)
-            if i+1 == 1:
-            	P = [1]
-            else:
-            	P.append(i+1)
+            t = prevWeight + abs(N[i][k])*nextRandom
             if t >= t_max:
                 t_max = t
                 listNodesMax = listNodes
             if (j==terminalNode):
-                if bestMax < t_max:
-                    bestMax = t_max
-                    pathList = P
+                newL = [prevWeight,listNodes]
+                P.append(newL)
             l += 1
         k += 1
     t_tab[j] = t_max
@@ -126,25 +118,22 @@ def write_output(filename, results):
 
 
 def runSimulation(n):
-    global pathList, bestMax, P
+    global nextRandom, P
     dic = {}
     for i in range(n):
         P = []
-        bestMax = 0
-        pathList = []
         weight, nodeList = T(terminalNode)
         nodeList.append(terminalNode+1)
-        # print(weight)
-        # print(nodeList)
-        pathList.append(terminalNode+1)
-        pathList = nodeList
         path_string = ""
-        for c in pathList:
-            path_string = path_string + str(c) + ","
-        if (path_string not in dic.keys()):
-            dic[path_string] = 1
-        else:
-            dic[path_string] = dic[path_string]+1
+        for z in P:
+            if z[0]==weight:
+                nodeList = z[1]
+                for c in nodeList:
+                    path_string = path_string + str(c) + ","
+                if (path_string not in dic.keys()):
+                    dic[path_string] = 1
+                else:
+                    dic[path_string] = dic[path_string]+1
     for k, c in dic.items():
         print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
