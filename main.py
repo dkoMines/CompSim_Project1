@@ -75,14 +75,18 @@ def find_path(j):
 
 
 def createMatrix(fileName):
-    data = open(fileName)
+    try:
+        data = open(fileName)
+    except:
+        print("Description File not found")
+        exit(1)
     largestNum = 0
     numLines = 0
     n = []
     for lt in [line.split() for line in data]:
         source = int(lt[0])
         dest = int(lt[1])
-        weight = int(lt[2])
+        weight = float(lt[2])
         numLines += 1
         if largestNum < dest:
             largestNum = dest
@@ -148,7 +152,11 @@ def runSimulation(n):
 
 def runProgram(uniformFileName, repNum, txtFileName):
     global N,Beta,t_tab,terminalNode,n
-    uniforms = open(uniformFileName)
+    try:
+        uniforms = open(uniformFileName)
+    except:
+        print("Random File not found")
+        exit(1)
     N = createMatrix(txtFileName)
     Beta = make_Beta()
     t_tab = [None for i in range(len(N))]
