@@ -33,7 +33,7 @@ def T(j):
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
-            t = prevWeight + abs(N[i][k])*nextRandom
+            t = prevWeight + abs(N[i][k])*getRandom()
             if t >= t_max:
                 t_max = t
                 listNodesMax = listNodes
@@ -138,11 +138,19 @@ def runSimulation(n):
         print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
 
+def getRandom():
+    global uniforms
+    line = uniforms.readline()
+    try:
+        return float(line)
+    except:
+        print("Random Uniform was not found.")
+        exit(1)
 
 def runProgram(uniformFileName, repNum, txtFileName):
-    global N,Beta,t_tab,terminalNode,n
+    global N,Beta,t_tab,terminalNode,n,uniforms
     try:
-        uniforms = open(uniformFileName)
+        uniforms = open(uniformFileName,"r")
     except:
         print("Random File not found")
         exit(1)
