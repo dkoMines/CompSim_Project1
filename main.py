@@ -145,12 +145,11 @@ def runSimulation(n):
     write_output('resultsTest.txt', dic)
 
 
-
-N = createMatrix("san-leemis79.net")
-Beta = make_Beta()
-t_tab = [None for i in range(len(N))]
-t_tab[0] = 0.0
-terminalNode = len(N)-1
-n = 100000
-
-runSimulation(n)
+def runProgram():
+    N = createMatrix("san-leemis79.net")
+    Beta = make_Beta()
+    t_tab = [None for i in range(len(N))]
+    t_tab[0] = 0.0
+    terminalNode = len(N)-1
+    n = 100000
+    runSimulation(n)
