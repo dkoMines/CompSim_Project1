@@ -115,8 +115,16 @@ def write_output(filename, results):
 
 
 def runSimulation(n):
-    global nextRandom, P, N_R
+    global nextRandom, P, N_R, allPaths
     dic = {}
+    for path in allPaths:
+        path_string = ""
+        for c in path:
+            c += 1
+            path_string = path_string + str(c) + ","
+            if (path_string not in dic.keys()):
+                dic[path_string] = 0
+                
     for i in range(n):
         N_R = randomizedN()
         P = []
@@ -154,7 +162,7 @@ def getRandom():
         exit(1)
 
 def runProgram(uniformFileName, repNum, txtFileName):
-    global N,Beta,t_tab,terminalNode,n,uniforms
+    global N,Beta,t_tab,terminalNode,n,uniforms, allPaths
     try:
         uniforms = open(uniformFileName,"r")
     except:
@@ -164,6 +172,9 @@ def runProgram(uniformFileName, repNum, txtFileName):
     Beta = make_Beta()
     t_tab = [None for i in range(len(N))]
     t_tab[0] = 0.0
+
+    find_paths(0, len(N), [], [False]*len(N))
+
     terminalNode = len(N)-1
     n = int(repNum)
     runSimulation(n)
@@ -176,3 +187,17 @@ def randomizedN():
         for i in range(len(N_Random)):
             N_Random[i][j] = N_Random[i][j] * x
     return N_Random
+
+def find_paths(node, dest, path, visited):
+    global allPaths
+    visited[node] = True
+    path.append(node)
+    if node == dest:
+        path.append(dest)
+        allPaths.append(path)
+    else:
+        for i in range(len(N)):
+            if node in Beta[i] and not visited[i]:
+                find_paths(i, dest, [e for e in path])
+    path.pop()
+    visited[node] = False
