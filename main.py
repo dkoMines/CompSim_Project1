@@ -105,8 +105,8 @@ def runSimulation(n,N):
         for c in path:
             c += 1
             path_string = path_string + str(c) + ","
-            if (path_string not in dic.keys()):
-                dic[path_string] = 0
+        if (path_string not in dic.keys()):
+            dic[path_string] = 0
     for i in range(n):
         N_R = randomizedN(N)
         P = []
@@ -162,13 +162,12 @@ def randomizedN(N):
     return N_Random
 
 def find_paths(node, dest, path, visited):
-    global allPaths, terminalNode
+    global allPaths
     visited[node] = True
     path.append(node)
     if node == dest:
         path.append(dest)
-        if (node == terminalNode):
-            allPaths.append(path)
+        allPaths.append(path)
     else:
         for i in range(len(N)):
             if node in Beta[i] and not visited[i]:
