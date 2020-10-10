@@ -88,11 +88,11 @@ def write_output(filename, results):
             string += r[:-1]
             string += ':\t' + str(v/n)
             path_str = ""
-            for i in range(len(r)):
-                if i % 2 == 0:
-                    if i + 2 >= len(r):
-                        break
-                    path_str += f"a{r[i]}/{r[i+2]},"
+            rs = r.split(',')
+            for i in range(len(rs)):
+                if i == len(rs)-1:
+                    break
+                path_str += f"a{r[i]}/{r[i+1]},"
             print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}".format(v/n))
             f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}\n".format(v/n))
 
