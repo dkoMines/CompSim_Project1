@@ -167,7 +167,8 @@ def find_paths(node, dest, path, visited):
     path.append(node)
     if node == dest:
         path.append(dest)
-        allPaths.append(path)
+        if (node == terminalNode):
+            allPaths.append(path)
     else:
         for i in range(len(N)):
             if node in Beta[i] and not visited[i]:
