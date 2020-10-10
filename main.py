@@ -107,19 +107,10 @@ def runSimulation(n,N):
             path_string = path_string + str(c) + ","
             if (path_string not in dic.keys()):
                 dic[path_string] = 0
-
     for i in range(n):
         N_R = randomizedN(N)
         P = []
         weight, nodeList = T(terminalNode)
-        # nodeList.append(terminalNode+1)
-        path_string = ""
-        # for c in nodeList:
-        #     path_string = path_string + str(c) + ","
-        # if (path_string not in dic.keys()):
-        #     dic[path_string] = 1
-        # else:
-        #     dic[path_string] = dic[path_string]+1
         for z in P:
             if z[0]==weight:
                 nodeList = z[1]
@@ -131,9 +122,8 @@ def runSimulation(n,N):
                     dic[path_string] = 1
                 else:
                     dic[path_string] = dic[path_string]+1
-    for k, c in dic.items():
-        print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
+    print(dic)
     
 def getRandom():
     global uniforms
