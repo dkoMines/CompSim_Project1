@@ -33,12 +33,12 @@ def T(j):
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
-            t = prevWeight + abs(N[i][k])*getRandom()
+            t = prevWeight + abs(N_R[i][k])
             if t >= t_max:
                 t_max = t
                 listNodesMax = listNodes
             if (j==terminalNode):
-                newL = [prevWeight,listNodes]
+                newL = [t,listNodes]
                 P.append(newL)
             l += 1
         k += 1
@@ -98,9 +98,6 @@ def createMatrix(fileName):
         count += 1
     return n
 
-
-
-
 def write_output(filename, results):
     with open(filename, 'w') as f:
         for r, v in results.items():
@@ -113,21 +110,30 @@ def write_output(filename, results):
                     if i + 2 >= len(r):
                         break
                     path_str += f"a{r[i]}/{r[i+2]},"
-            print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:e}".format(v/n))
-            f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:e}\n".format(v/n))
+            print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}".format(v/n))
+            f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}\n".format(v/n))
 
 
 def runSimulation(n):
-    global nextRandom, P
+    global nextRandom, P, N_R
     dic = {}
     for i in range(n):
+        N_R = randomizedN()
         P = []
         weight, nodeList = T(terminalNode)
-        nodeList.append(terminalNode+1)
+        # nodeList.append(terminalNode+1)
         path_string = ""
+        # for c in nodeList:
+        #     path_string = path_string + str(c) + ","
+        # if (path_string not in dic.keys()):
+        #     dic[path_string] = 1
+        # else:
+        #     dic[path_string] = dic[path_string]+1
         for z in P:
             if z[0]==weight:
                 nodeList = z[1]
+                nodeList.append(terminalNode+1)
+                path_string = ""
                 for c in nodeList:
                     path_string = path_string + str(c) + ","
                 if (path_string not in dic.keys()):
@@ -137,7 +143,7 @@ def runSimulation(n):
     for k, c in dic.items():
         print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
-
+    
 def getRandom():
     global uniforms
     line = uniforms.readline()
@@ -161,3 +167,12 @@ def runProgram(uniformFileName, repNum, txtFileName):
     terminalNode = len(N)-1
     n = int(repNum)
     runSimulation(n)
+
+def randomizedN():
+    global N
+    N_Random = N
+    for j in range(len(N_Random[0])):
+        x = getRandom()
+        for i in range(len(N_Random)):
+            N_Random[i][j] = N_Random[i][j] * x
+    return N_Random
