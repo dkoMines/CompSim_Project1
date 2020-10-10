@@ -185,7 +185,7 @@ def randomizedN(N):
     for col in range(len(N_Random[0])):
         x = getRandom()
         for row in range(len(N_Random)):
-            N_Random[row][col] = N_Random[row][col] * getRandom
+            N_Random[row][col] = N_Random[row][col] * getRandom()
     return N_Random
 
 def find_paths(node, dest, path, visited):
