@@ -162,7 +162,7 @@ def randomizedN(N):
     return N_Random
 
 def find_paths(node, dest, path, visited):
-    global allPaths
+    global allPaths, terminalNode
     visited[node] = True
     path.append(node)
     if node == dest:
