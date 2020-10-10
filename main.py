@@ -93,8 +93,8 @@ def write_output(filename, results):
                 if i == len(rs)-2:
                     break
                 path_str += f"a{rs[i]}/{rs[i+1]},"
-            print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}".format(v/n))
-            f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}\n".format(v/n))
+            print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+": ")+"{:.5e}".format(v/n))
+            f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+": ")+"{:.5e}\n".format(v/n))
 
 
 def runSimulation(n,N):
