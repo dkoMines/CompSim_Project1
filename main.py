@@ -148,7 +148,7 @@ def runProgram(uniformFileName, repNum, txtFileName):
     t_tab[0] = 0.0
 
     # find_paths(0, len(N)-1, [], [False]*len(N))
-    find_paths2(0)
+    find_paths2(0,[])
 
     terminalNode = len(N)-1
     n = int(repNum)
@@ -186,6 +186,6 @@ def find_paths2(j, pathList):
                     if row==terminalNode:
                         pathList.append(row+1)
                         allPaths.append(pathList)
-                        print("Path found, "pathList)
+                        print("Path found, ",pathList)
                     else:
                         find_paths2(row, pathList)
