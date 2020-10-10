@@ -48,23 +48,6 @@ def T(j):
     return t_max, listNodesMax
 
 # Takes the .net file and creates an n*m matrix. 
-def max_beta(j):
-    b = sorted([(t_tab[c], c) for c in Beta[j]])
-    return b[-1][1]
-
-
-def find_path(j):
-    path = str(j+1)
-    path += ","
-    while True:
-        max_node = max_beta(j)
-        path += str(max_node+1)
-        if max_node == 0:
-            return path
-        else:
-            path += ","
-        j = max_node
-
 
 def createMatrix(fileName):
     try:
