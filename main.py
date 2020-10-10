@@ -90,9 +90,9 @@ def write_output(filename, results):
             path_str = ""
             rs = r.split(',')
             for i in range(len(rs)):
-                if i == len(rs)-1:
+                if i == len(rs)-2:
                     break
-                path_str += f"a{r[i]}/{r[i+1]},"
+                path_str += f"a{rs[i]}/{rs[i+1]},"
             print("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}".format(v/n))
             f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}\n".format(v/n))
 
