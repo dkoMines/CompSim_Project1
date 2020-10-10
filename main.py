@@ -182,10 +182,10 @@ def runProgram(uniformFileName, repNum, txtFileName):
 
 def randomizedN(N):
     N_Random = [[e for e in s] for s in N]
-    for col in range(len(N[0])):
+    for col in range(len(N_Random[0])):
         x = getRandom()
-        for row in range(len(N)):
-            N_Random[row][col] = N_Random[row][col] * getRandom()
+        for row in range(len(N_Random)):
+            N_Random[row][col] = N_Random[row][col] * x
     return N_Random
 
 def find_paths(node, dest, path, visited):
