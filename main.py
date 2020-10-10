@@ -38,7 +38,7 @@ def T(j):
                 t_max = t
                 listNodesMax = listNodes
             if (j==terminalNode):
-                newL = [t_max,listNodes]
+                newL = [t,listNodes]
                 P.append(newL)
             l += 1
         k += 1
@@ -145,7 +145,7 @@ def runSimulation(n):
     for k, c in dic.items():
         print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
-    print(sumX/n)
+    print(P)
 
 def getRandom():
     global uniforms
