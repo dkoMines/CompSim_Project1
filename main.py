@@ -107,6 +107,8 @@ def runSimulation(n,N):
             path_string = path_string + str(c) + ","
         if (path_string not in dic.keys()):
             dic[path_string] = 0
+    print(len(dic))
+    print(len(allPaths))
     for i in range(n):
         N_R = randomizedN(N)
         P = []
