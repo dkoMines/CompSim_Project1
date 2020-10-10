@@ -27,9 +27,9 @@ def T(j):
     l = 0
     t_max = 0.0
     while l < len(Beta[j]):
-        if N[j][k] < 0.0:
+        if N_R[j][k] < 0.0:
             i = 0
-            while N[i][k] <= 0.0:
+            while N_R[i][k] <= 0.0:
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
