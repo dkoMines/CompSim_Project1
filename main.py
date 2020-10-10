@@ -33,7 +33,7 @@ def T(j):
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
-            t = prevWeight + abs(N[i][k])*getRandom()
+            t = prevWeight + abs(N_R[i][k])
             if t >= t_max:
                 t_max = t
                 listNodesMax = listNodes
@@ -115,9 +115,10 @@ def write_output(filename, results):
 
 
 def runSimulation(n):
-    global nextRandom, P
+    global nextRandom, P, N_R
     dic = {}
     for i in range(n):
+        N_R = randomizedN()
         P = []
         weight, nodeList = T(terminalNode)
         # nodeList.append(terminalNode+1)
@@ -166,3 +167,12 @@ def runProgram(uniformFileName, repNum, txtFileName):
     terminalNode = len(N)-1
     n = int(repNum)
     runSimulation(n)
+
+def randomizedN():
+    global N
+    N_Random = N
+    for i in range(len(N_Random)):
+        x = getRandom()
+        for j in range(len(N_Random[i])):
+            N_Random = N_Random * x
+    return N_Random
