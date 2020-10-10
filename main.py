@@ -171,8 +171,8 @@ def runProgram(uniformFileName, repNum, txtFileName):
 def randomizedN():
     global N
     N_Random = N
-    for i in range(len(N_Random)):
+    for j in range(len(N_Random[0])):
         x = getRandom()
-        for j in range(len(N_Random[i])):
-            N_Random = N_Random * x
+        for i in range(len(N_Random)):
+            N_Random[i][j] = N_Random[i][j] * x
     return N_Random
