@@ -163,6 +163,7 @@ def getRandom():
 
 def runProgram(uniformFileName, repNum, txtFileName):
     global N,Beta,t_tab,terminalNode,n,uniforms, allPaths
+    allPaths = []
     try:
         uniforms = open(uniformFileName,"r")
     except:
