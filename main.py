@@ -98,9 +98,6 @@ def createMatrix(fileName):
         count += 1
     return n
 
-
-
-
 def write_output(filename, results):
     with open(filename, 'w') as f:
         for r, v in results.items():
@@ -120,13 +117,11 @@ def write_output(filename, results):
 def runSimulation(n):
     global nextRandom, P
     dic = {}
-    sumX = 0
     for i in range(n):
         P = []
         weight, nodeList = T(terminalNode)
-        nodeList.append(terminalNode+1)
+        # nodeList.append(terminalNode+1)
         path_string = ""
-        sumX += weight
         # for c in nodeList:
         #     path_string = path_string + str(c) + ","
         # if (path_string not in dic.keys()):
@@ -136,6 +131,8 @@ def runSimulation(n):
         for z in P:
             if z[0]==weight:
                 nodeList = z[1]
+                nodeList.append(terminalNode+1)
+                path_string = ""
                 for c in nodeList:
                     path_string = path_string + str(c) + ","
                 if (path_string not in dic.keys()):
@@ -145,8 +142,7 @@ def runSimulation(n):
     for k, c in dic.items():
         print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
-    print(P)
-
+    
 def getRandom():
     global uniforms
     line = uniforms.readline()
