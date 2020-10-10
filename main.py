@@ -47,7 +47,9 @@ def T(j):
             if (j==terminalNode):
                 if bestMax < t_max:
                     bestMax = t_max
-                    pathList = P
+                    pathList = [P]
+                elif bestMax == t_max:
+                    pathList.append(P)
             l += 1
         k += 1
     t_tab[j] = t_max
@@ -82,7 +84,10 @@ def createMatrix(fileName):
     for lt in [line.split() for line in data]:
         source = int(lt[0])
         dest = int(lt[1])
-        weight = int(lt[2])
+        try:
+            weight = int(lt[2])
+        except:
+            weight = float(lt[2])
         numLines += 1
         if largestNum < dest:
             largestNum = dest
@@ -132,17 +137,19 @@ def runSimulation(n):
         nodeList.append(terminalNode+1)
         # print(weight)
         # print(nodeList)
-        pathList.append(terminalNode+1)
-        pathList = nodeList
-        path_string = ""
-        for c in pathList:
-            path_string = path_string + str(c) + ","
-        if (path_string not in dic.keys()):
-            dic[path_string] = 1
-        else:
-            dic[path_string] = dic[path_string]+1
-    for k, c in dic.items():
-        print(k," : ","{:e}".format(c/n))
+        for pl in pathList:
+            pl.append(terminalNode+1)
+            pl = nodeList
+        for pl in pathList:
+            path_string = ""
+            for c in pl:
+                path_string = path_string + str(c) + ","
+            if (path_string not in dic.keys()):
+                dic[path_string] = 1
+            else:
+                dic[path_string] = dic[path_string]+1
+    '''for k, c in dic.items():
+        print(k," : ","{:e}".format(c/n))'''
     write_output('resultsTest.txt', dic)
 
 
