@@ -148,8 +148,8 @@ def runProgram(uniformFileName, repNum, txtFileName):
     t_tab[0] = 0.0
     terminalNode = len(N)-1
 
-    # find_paths(0, len(N)-1, [], [False]*len(N))
-    find_paths2(0,[])
+    find_paths(0, len(N)-1, [], [False]*len(N))
+    # find_paths2(0,[])
 
     n = int(repNum)
     runSimulation(n,N)
