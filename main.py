@@ -22,9 +22,7 @@ def make_Beta():
 
 def T(j):
     # print(j+1)
-    global pathList
-    global P
-    global bestMax
+    global P, nextRandom
     k = 0
     l = 0
     t_max = 0.0
@@ -35,21 +33,13 @@ def T(j):
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
-            t = prevWeight + abs(N[i][k])*random.random()*2
-            # print(j+1,"->",i+1," Weight: ",t)
-            if i+1 == 1:
-            	P = [1]
-            else:
-            	P.append(i+1)
+            t = prevWeight + abs(N[i][k])*getRandom()
             if t >= t_max:
                 t_max = t
                 listNodesMax = listNodes
             if (j==terminalNode):
-                if bestMax < t_max:
-                    bestMax = t_max
-                    pathList = [P]
-                elif bestMax == t_max:
-                    pathList.append(P)
+                newL = [prevWeight,listNodes]
+                P.append(newL)
             l += 1
         k += 1
     t_tab[j] = t_max
@@ -77,17 +67,18 @@ def find_path(j):
 
 
 def createMatrix(fileName):
-    data = open(fileName)
+    try:
+        data = open(fileName)
+    except:
+        print("Description File not found")
+        exit(1)
     largestNum = 0
     numLines = 0
     n = []
     for lt in [line.split() for line in data]:
         source = int(lt[0])
         dest = int(lt[1])
-        try:
-            weight = int(lt[2])
-        except:
-            weight = float(lt[2])
+        weight = float(lt[2])
         numLines += 1
         if largestNum < dest:
             largestNum = dest
@@ -127,35 +118,42 @@ def write_output(filename, results):
 
 
 def runSimulation(n):
-    global pathList, bestMax, P
+    global nextRandom, P
     dic = {}
     for i in range(n):
         P = []
-        bestMax = 0
-        pathList = []
         weight, nodeList = T(terminalNode)
         nodeList.append(terminalNode+1)
-        # print(weight)
-        # print(nodeList)
-        for pl in pathList:
-            pl.append(terminalNode+1)
-            pl = nodeList
-        for pl in pathList:
-            path_string = ""
-            for c in pl:
-                path_string = path_string + str(c) + ","
-            if (path_string not in dic.keys()):
-                dic[path_string] = 1
-            else:
-                dic[path_string] = dic[path_string]+1
-    '''for k, c in dic.items():
-        print(k," : ","{:e}".format(c/n))'''
+        path_string = ""
+        for z in P:
+            if z[0]==weight:
+                nodeList = z[1]
+                for c in nodeList:
+                    path_string = path_string + str(c) + ","
+                if (path_string not in dic.keys()):
+                    dic[path_string] = 1
+                else:
+                    dic[path_string] = dic[path_string]+1
+    for k, c in dic.items():
+        print(k," : ","{:e}".format(c/n))
     write_output('resultsTest.txt', dic)
 
+def getRandom():
+    global uniforms
+    line = uniforms.readline()
+    try:
+        return float(line)
+    except:
+        print("Random Uniform was not found.")
+        exit(1)
 
 def runProgram(uniformFileName, repNum, txtFileName):
-    global N,Beta,t_tab,terminalNode,n
-    uniforms = open(uniformFileName)
+    global N,Beta,t_tab,terminalNode,n,uniforms
+    try:
+        uniforms = open(uniformFileName,"r")
+    except:
+        print("Random File not found")
+        exit(1)
     N = createMatrix(txtFileName)
     Beta = make_Beta()
     t_tab = [None for i in range(len(N))]
