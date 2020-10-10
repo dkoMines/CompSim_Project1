@@ -114,7 +114,7 @@ def write_output(filename, results):
             f.write("OUTPUT\t\t:"+"{:25}".format(path_str[:-1]+":")+"{:.5e}\n".format(v/n))
 
 
-def runSimulation(n):
+def runSimulation(n,N):
     global nextRandom, P, N_R, allPaths
     dic = {}
     for path in allPaths:
@@ -126,7 +126,7 @@ def runSimulation(n):
                 dic[path_string] = 0
 
     for i in range(n):
-        N_R = randomizedN()
+        N_R = randomizedN(N)
         P = []
         weight, nodeList = T(terminalNode)
         # nodeList.append(terminalNode+1)
@@ -178,10 +178,9 @@ def runProgram(uniformFileName, repNum, txtFileName):
 
     terminalNode = len(N)-1
     n = int(repNum)
-    runSimulation(n)
+    runSimulation(n,N)
 
-def randomizedN():
-    global N
+def randomizedN(N):
     N_Random = N
     for j in range(len(N_Random[0])):
         x = getRandom()
