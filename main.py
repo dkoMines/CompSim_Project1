@@ -27,9 +27,9 @@ def T(j):
     l = 0
     t_max = 0.0
     while l < len(Beta[j]):
-        if N_R[j][k] < 0.0:
+        if N[j][k] < 0.0:
             i = 0
-            while N_R[i][k] <= 0.0:
+            while N[i][k] <= 0.0:
                 i += 1
             prevWeight, listNodes = T(i)
             listNodes.append(i+1)
@@ -181,11 +181,11 @@ def runProgram(uniformFileName, repNum, txtFileName):
     runSimulation(n,N)
 
 def randomizedN(N):
-    N_Random = N
+    N_Random = [[e for e in s] for s in N]
     for col in range(len(N_Random[0])):
         x = getRandom()
         for row in range(len(N_Random)):
-            N_Random[row][col] = N_Random[row][col] * 1
+            N_Random[row][col] = N_Random[row][col] * getRandom
     return N_Random
 
 def find_paths(node, dest, path, visited):
