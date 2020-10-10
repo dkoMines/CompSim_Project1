@@ -124,7 +124,7 @@ def runSimulation(n):
             path_string = path_string + str(c) + ","
             if (path_string not in dic.keys()):
                 dic[path_string] = 0
-                
+
     for i in range(n):
         N_R = randomizedN()
         P = []
@@ -198,6 +198,6 @@ def find_paths(node, dest, path, visited):
     else:
         for i in range(len(N)):
             if node in Beta[i] and not visited[i]:
-                find_paths(i, dest, [e for e in path])
+                find_paths(i, dest, [e for e in path], visited)
     path.pop()
     visited[node] = False
