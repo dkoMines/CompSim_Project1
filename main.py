@@ -156,7 +156,6 @@ def runProgram(uniformFileName, repNum, txtFileName):
     global N,Beta,t_tab,terminalNode,n,uniforms
     try:
         uniforms = open(uniformFileName,"r")
-        line = uniforms.readline()
     except:
         print("Random File not found")
         exit(1)
