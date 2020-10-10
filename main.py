@@ -147,7 +147,7 @@ def runProgram(uniformFileName, repNum, txtFileName):
     t_tab = [None for i in range(len(N))]
     t_tab[0] = 0.0
 
-    find_paths(0, len(N), [], [False]*len(N))
+    find_paths(0, len(N)-1, [], [False]*len(N))
 
     terminalNode = len(N)-1
     n = int(repNum)
